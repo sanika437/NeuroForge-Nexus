@@ -52,20 +52,11 @@ export const DashboardLayout = ({ children }) => {
     { name: "Projects", path: "/projects", icon: FolderGit2, category: "Core", functional: true },
     { name: "Users", path: "/users", icon: Users, category: "Core", functional: true },
     { name: "Teams", path: "/teams", icon: Network, category: "Core", functional: true },
-    { name: "Sprint Planning", path: "/sprints", icon: CalendarDays, category: "Core", functional: true },
-    
-    { name: "CI/CD Pipeline", path: "/cicd", icon: GitFork, category: "DevOps & QA", functional: false, milestone: "Milestone 3" },
-    { name: "Testing", path: "/testing", icon: CheckSquare, category: "DevOps & QA", functional: false, milestone: "Milestone 2" },
-    { name: "Release Management", path: "/release", icon: Package, category: "Delivery", functional: false, milestone: "Milestone 4" },
-    { name: "Deployment", path: "/deployment", icon: CloudLightning, category: "Delivery", functional: false, milestone: "Milestone 4" },
-    { name: "Monitoring", path: "/monitoring", icon: LineChart, category: "Operations", functional: false, milestone: "Milestone 4" },
-    { name: "Reports", path: "/reports", icon: BarChart3, category: "Operations", functional: false, milestone: "Milestone 3" },
-    
-    { name: "Settings", path: "/settings", icon: Settings, category: "System", functional: false, milestone: "Milestone 1" }
+    { name: "Sprint Planning", path: "/sprints", icon: CalendarDays, category: "Core", functional: true }
   ];
 
   // Group menu items by category for professional categorization
-  const categories = ["Core", "DevOps & QA", "Delivery", "Operations", "System"];
+  const categories = ["Core"];
 
   // Dynamic breadcrumbs based on location path
   const getBreadcrumbs = () => {

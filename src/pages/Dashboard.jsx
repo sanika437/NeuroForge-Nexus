@@ -58,12 +58,7 @@ export const Dashboard = () => {
   const { showToast } = useToast();
   const { theme, isDark } = useTheme();
 
-  // Custom theme colors for charts
-  const strokeColor = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.06)";
-  const textColor = isDark ? "#a1a1aa" : "#71717a";
-  const tooltipBg = isDark ? "#121215" : "#ffffff";
-  const tooltipBorder = isDark ? "#222226" : "#e4e4e7";
-  const tooltipText = isDark ? "#f4f4f5" : "#09090b";
+
 
   // Local storage state
   const [projects, setProjects] = useState([]);
@@ -274,38 +269,7 @@ export const Dashboard = () => {
     loadData();
   };
 
-  // Recharts Chart Data Processing
-  // 1. Project Priority distribution
-  const priorityData = [
-    { name: "High", count: projects.filter((p) => p.priority === "High").length },
-    { name: "Medium", count: projects.filter((p) => p.priority === "Medium").length },
-    { name: "Low", count: projects.filter((p) => p.priority === "Low").length }
-  ];
 
-  // 2. User Roles distribution
-  const roleCounts = users.reduce((acc, curr) => {
-    acc[curr.role] = (acc[curr.role] || 0) + 1;
-    return acc;
-  }, {});
-  const roleData = Object.keys(roleCounts).map((role) => ({
-    name: role,
-    value: roleCounts[role]
-  }));
-
-  // 3. Team Member Counts
-  const teamMemberData = teams.map((team) => ({
-    name: team.name,
-    members: team.members.length
-  }));
-
-  // 4. Sprint Task Completion (Static distribution based on Sprint 12 details from PDF)
-  const sprintTaskData = [
-    { name: "To Do", value: 5, color: "#a1a1aa" },
-    { name: "In Progress", value: 8, color: "#6366f1" },
-    { name: "Completed", value: 12, color: "#10b981" }
-  ];
-
-  const CHART_COLORS = ["#6366f1", "#06b6d4", "#f59e0b", "#ec4899", "#8b5cf6", "#10b981"];
 
   // Form selections dropdown items
   const projectManagerList = ["Jane Doe", "Sarah Jenkins", "Bob Smith", "Emily Watson"];
@@ -468,123 +432,76 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Charts Section */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Recharts Charts Matrix */}
+          {/* RBAC & Team Setup Overview */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Project Priority Distribution */}
-            <Card className="bg-card border-border/80">
-              <CardHeader className="p-4">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Project Priorities</CardTitle>
-                <CardDescription className="text-[10px]">Count of active projects by category</CardDescription>
+            {/* RBAC Rules Matrix */}
+            <Card className="bg-card border-border/85">
+              <CardHeader className="p-4 border-b border-border/55">
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-primary">Role-Based Access Control (RBAC)</CardTitle>
+                <CardDescription className="text-[10px]">Access privileges for tenant roles</CardDescription>
               </CardHeader>
-              <CardContent className="h-64 pb-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={priorityData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                    <XAxis dataKey="name" stroke={textColor} fontSize={10} tickLine={false} />
-                    <YAxis stroke={textColor} fontSize={10} tickLine={false} />
-                    <ChartTooltip
-                      contentStyle={{ backgroundColor: tooltipBg, borderColor: tooltipBorder, color: tooltipText, borderRadius: "8px", fontSize: "11px" }}
-                      labelStyle={{ color: textColor, fontWeight: "bold" }}
-                    />
-                    <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]}>
-                      {priorityData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={index === 0 ? "#ef4444" : index === 1 ? "#3b82f6" : "#10b981"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+              <CardContent className="p-4 space-y-3.5 text-xs font-semibold">
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between pb-2 border-b border-border/40">
+                    <div>
+                      <span className="font-bold text-foreground">Admin</span>
+                      <p className="text-[10px] text-muted-foreground font-medium mt-0.5">Full environment administration and IAM management.</p>
+                    </div>
+                    <Badge variant="Admin">All Actions</Badge>
+                  </div>
+                  <div className="flex items-start justify-between pb-2 border-b border-border/40">
+                    <div>
+                      <span className="font-bold text-foreground">Project Manager</span>
+                      <p className="text-[10px] text-muted-foreground font-medium mt-0.5">Create projects, assign teams, and plan sprints.</p>
+                    </div>
+                    <Badge variant="Project Manager">Manage</Badge>
+                  </div>
+                  <div className="flex items-start justify-between pb-2 border-b border-border/40">
+                    <div>
+                      <span className="font-bold text-foreground">Developer</span>
+                      <p className="text-[10px] text-muted-foreground font-medium mt-0.5">View workspace, contribute, and track sprints.</p>
+                    </div>
+                    <Badge variant="Developer">Contribute</Badge>
+                  </div>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="font-bold text-foreground">DevOps Engineer</span>
+                      <p className="text-[10px] text-muted-foreground font-medium mt-0.5">Configure environments and deploy builds.</p>
+                    </div>
+                    <Badge variant="DevOps Engineer">Deploy</Badge>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
-            {/* User Roles distribution */}
-            <Card className="bg-card border-border/80">
-              <CardHeader className="p-4">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">User Roles Breakdown</CardTitle>
-                <CardDescription className="text-[10px]">Active IAM account distribution</CardDescription>
+            {/* Platform Integration Summary */}
+            <Card className="bg-card border-border/85">
+              <CardHeader className="p-4 border-b border-border/55">
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-primary">Milestone 1 Deliverables</CardTitle>
+                <CardDescription className="text-[10px]">Setup checklist & platform indicators</CardDescription>
               </CardHeader>
-              <CardContent className="h-64 flex items-center justify-center pb-4">
-                {roleData.length > 0 ? (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={roleData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={55}
-                        outerRadius={75}
-                        paddingAngle={4}
-                        dataKey="value"
-                      >
-                        {roleData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <ChartTooltip
-                        contentStyle={{ backgroundColor: tooltipBg, borderColor: tooltipBorder, color: tooltipText, borderRadius: "8px", fontSize: "11px" }}
-                      />
-                      <Legend 
-                        layout="horizontal" 
-                        verticalAlign="bottom" 
-                        align="center"
-                        iconSize={7}
-                        iconType="circle"
-                        wrapperStyle={{ fontSize: "9px", color: textColor }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <span className="text-xs text-muted-foreground">No users found</span>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Team Distribution */}
-            <Card className="bg-card border-border/80">
-              <CardHeader className="p-4">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Team Headcounts</CardTitle>
-                <CardDescription className="text-[10px]">Registered members by functional team</CardDescription>
-              </CardHeader>
-              <CardContent className="h-64 pb-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={teamMemberData} layout="vertical" margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
-                    <XAxis type="number" stroke={textColor} fontSize={10} tickLine={false} />
-                    <YAxis dataKey="name" type="category" stroke={textColor} fontSize={9} tickLine={false} width={80} />
-                    <ChartTooltip
-                      contentStyle={{ backgroundColor: tooltipBg, borderColor: tooltipBorder, color: tooltipText, borderRadius: "8px", fontSize: "11px" }}
-                    />
-                    <Bar dataKey="members" fill="#06b6d4" radius={[0, 4, 4, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            {/* Sprint Progress (Fincore Nexus tasks) */}
-            <Card className="bg-card border-border/80">
-              <CardHeader className="p-4">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Sprint 12 Task Load</CardTitle>
-                <CardDescription className="text-[10px]">Active sprint task progress distribution</CardDescription>
-              </CardHeader>
-              <CardContent className="h-64 flex items-center justify-center pb-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={sprintTaskData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={0}
-                      outerRadius={80}
-                      labelLine={false}
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                      dataKey="value"
-                    >
-                      {sprintTaskData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <ChartTooltip
-                      contentStyle={{ backgroundColor: tooltipBg, borderColor: tooltipBorder, color: tooltipText, borderRadius: "8px", fontSize: "11px" }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <CardContent className="p-4 space-y-3.5">
+                <div className="flex items-center justify-between p-2.5 bg-secondary/20 border border-border/40 rounded-xl">
+                  <div className="flex items-center gap-2.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-foreground">IAM Identity Directory</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-500 font-extrabold bg-emerald-500/10 px-2 py-0.5 rounded">CONNECTED</span>
+                </div>
+                <div className="flex items-center justify-between p-2.5 bg-secondary/20 border border-border/40 rounded-xl">
+                  <div className="flex items-center gap-2.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-foreground">LocalStorage DB Cache</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-500 font-extrabold bg-emerald-500/10 px-2 py-0.5 rounded">INITIALIZED</span>
+                </div>
+                <div className="flex items-center justify-between p-2.5 bg-secondary/20 border border-border/40 rounded-xl">
+                  <div className="flex items-center gap-2.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-foreground">Scrum Velocity Engine</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-500 font-extrabold bg-emerald-500/10 px-2 py-0.5 rounded">READY</span>
+                </div>
               </CardContent>
             </Card>
           </div>

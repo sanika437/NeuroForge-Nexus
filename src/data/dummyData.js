@@ -21,17 +21,6 @@ export const INITIAL_PROJECTS = [
     currentSprint: "Sprint 11",
     deadline: "2026-08-15",
     description: "IAM integration layer leveraging Keycloak for enterprise-grade authentication and single sign-on."
-  },
-  {
-    id: "p3",
-    name: "LogiRoute Optimise",
-    manager: "Sarah Jenkins",
-    priority: "Low",
-    status: "Completed",
-    membersCount: 8,
-    currentSprint: "Sprint 10",
-    deadline: "2026-04-10",
-    description: "AI-driven route planning and fleet management service running on AWS Elastic Kubernetes Service."
   }
 ];
 
@@ -69,7 +58,7 @@ export const INITIAL_USERS = [
     email: "tester@neuroforge.com",
     role: "Tester",
     department: "Quality Assurance",
-    team: "QA Team",
+    team: "N/A",
     status: "Active"
   },
   {
@@ -102,14 +91,6 @@ export const INITIAL_TEAMS = [
   },
   {
     id: "t3",
-    name: "QA Team",
-    lead: "Sarah Tester",
-    members: ["Sarah Tester", "Henry Ford", "Ivy League"],
-    projects: ["FinCore Nexus", "LogiRoute Optimise"],
-    capacity: "95%"
-  },
-  {
-    id: "t4",
     name: "DevOps Team",
     lead: "David DevOps",
     members: ["David DevOps", "Ian Malcolm", "Jack Ryan"],
@@ -146,20 +127,6 @@ export const INITIAL_SPRINTS = [
     progress: 100,
     storyPoints: 50,
     milestone: "Release 2.2"
-  },
-  {
-    id: "s3",
-    name: "Sprint 13",
-    goal: "Reporting Service Analytics Engine configuration",
-    project: "FinCore Nexus",
-    startDate: "2026-06-16",
-    endDate: "2026-06-30",
-    duration: "2026-06-16 to 2026-06-30",
-    velocity: 0,
-    status: "Planned",
-    progress: 0,
-    storyPoints: 80,
-    milestone: "Release 2.3"
   }
 ];
 
@@ -180,26 +147,13 @@ export const INITIAL_ACTIVITIES = [
   },
   {
     id: "a3",
-    user: "Sarah Tester",
+    user: "David DevOps",
     action: "assigned team",
-    target: "QA Team",
+    target: "DevOps Team",
     timestamp: "1 day ago"
-  },
-  {
-    id: "a4",
-    user: "Admin User",
-    action: "registered user",
-    target: "David DevOps",
-    timestamp: "2 days ago"
-  },
-  {
-    id: "a5",
-    user: "Jane Doe",
-    action: "updated",
-    target: "Project FinCore Nexus",
-    timestamp: "3 days ago"
   }
 ];
+
 
 // Initialize local storage database
 export const initLocalStorage = () => {
