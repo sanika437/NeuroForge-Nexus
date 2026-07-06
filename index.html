@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/react.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NeuroForge Nexus is an enterprise-grade cloud-native software development lifecycle (SDLC) platform designed for Agile management, CI/CD operations, QA tracking, and monitoring." />
+    
+    <!-- SEO and modern fonts -->
+    <title>NeuroForge Nexus - Enterprise Cloud-Native SDLC Management Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Runtime Error Diagnostics Overlay -->
+    <script>
+      window.addEventListener('error', function(e) {
+        // Wait for body to exist
+        const show = () => {
+          const errDiv = document.createElement('div');
+          errDiv.style.position = 'fixed';
+          errDiv.style.top = '0';
+          errDiv.style.left = '0';
+          errDiv.style.width = '100%';
+          errDiv.style.height = '100%';
+          errDiv.style.backgroundColor = '#0c0a09';
+          errDiv.style.color = '#ef4444';
+          errDiv.style.padding = '32px';
+          errDiv.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+          errDiv.style.fontSize = '14px';
+          errDiv.style.lineHeight = '1.5';
+          errDiv.style.zIndex = '999999';
+          errDiv.style.overflow = 'auto';
+          errDiv.style.whiteSpace = 'pre-wrap';
+          errDiv.innerHTML = '<h2 style="font-size: 20px; font-weight: bold; margin-bottom: 16px;">🚨 Runtime Client Error Caught</h2>' +
+            '<strong>Message:</strong> ' + e.message + '<br/><br/>' +
+            '<strong>Source:</strong> ' + e.filename + ':' + e.lineno + ':' + e.colno + '<br/><br/>' +
+            '<strong>Stack Trace:</strong><br/><pre style="background: #1c1917; padding: 16px; border-radius: 8px; margin-top: 8px; border: 1px border #292524; color: #f2f2f2;">' + (e.error?.stack || 'No stack trace available') + '</pre>';
+          document.body.appendChild(errDiv);
+        };
+        if (document.body) show();
+        else window.addEventListener('DOMContentLoaded', show);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        const show = () => {
+          const errDiv = document.createElement('div');
+          errDiv.style.position = 'fixed';
+          errDiv.style.top = '0';
+          errDiv.style.left = '0';
+          errDiv.style.width = '100%';
+          errDiv.style.height = '100%';
+          errDiv.style.backgroundColor = '#0c0a09';
+          errDiv.style.color = '#ef4444';
+          errDiv.style.padding = '32px';
+          errDiv.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+          errDiv.style.fontSize = '14px';
+          errDiv.style.lineHeight = '1.5';
+          errDiv.style.zIndex = '999999';
+          errDiv.style.overflow = 'auto';
+          errDiv.style.whiteSpace = 'pre-wrap';
+          errDiv.innerHTML = '<h2 style="font-size: 20px; font-weight: bold; margin-bottom: 16px;">🚨 Unhandled Promise Rejection</h2>' +
+            '<strong>Reason:</strong> ' + e.reason + '<br/><br/>' +
+            '<strong>Stack Trace:</strong><br/><pre style="background: #1c1917; padding: 16px; border-radius: 8px; margin-top: 8px; border: 1px border #292524; color: #f2f2f2;">' + (e.reason?.stack || 'No stack trace available') + '</pre>';
+          document.body.appendChild(errDiv);
+        };
+        if (document.body) show();
+        else window.addEventListener('DOMContentLoaded', show);
+      });
+    </script>
+  </head>
+  <body class="bg-[#09090b] text-[#f4f4f5] antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
