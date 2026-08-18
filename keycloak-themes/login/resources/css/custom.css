@@ -1,0 +1,397 @@
+/* =========================================================================
+   NeuroForge Nexus - Keycloak Custom Theme CSS
+   Synced with Frontend UI & Light Mode Support
+   ========================================================================= */
+:root {
+  /* Core surfaces (dark, default) */
+  --bg: #0a0e12;
+  --bg-elevated: #0f151b;
+  --canvas: #0a0e12;
+  --surface: #121920;
+  --surface-2: #172029;
+  --surface-glass: rgba(18, 25, 32, 0.68);
+  --border-glass: rgba(45, 212, 191, 0.14);
+  --line: #232e37;
+  --line-soft: #1a232b;
+
+  /* Text */
+  --ink: #eef3f3;
+  --ink-soft: #93a5ab;
+  --ink-faint: #5b6b72;
+
+  /* Brand */
+  --accent: #14b8a6;
+  --accent-2: #38bdf8;
+  --accent-3: #fbbf24;
+  --accent-dark: #0d9488;
+  --accent-soft: rgba(20, 184, 166, 0.16);
+  --accent-rgb: 20, 184, 166;
+  --accent-gradient: linear-gradient(135deg, #14b8a6 0%, #38bdf8 100%);
+
+  /* Status */
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.15);
+  --success: #4ade80;
+  --success-soft: rgba(74, 222, 128, 0.15);
+
+  --radius: 12px;
+  --radius-lg: 18px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 0 1px rgba(20, 184, 166, 0.15), 0 8px 30px rgba(20, 184, 166, 0.12);
+  color-scheme: dark;
+}
+
+/* ---------- Light theme ---------- */
+[data-theme="light"] {
+  --bg: #f4f8f8;
+  --bg-elevated: #ffffff;
+  --canvas: #f4f8f8;
+  --surface: #ffffff;
+  --surface-2: #eef4f4;
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --border-glass: rgba(13, 148, 136, 0.16);
+  --line: #dde7e7;
+  --line-soft: #e7eeee;
+  
+  --ink: #0f1c1b;
+  --ink-soft: #4d6265;
+  --ink-faint: #8ba1a3;
+  
+  --accent: #0d9488;
+  --accent-2: #0284c7;
+  --accent-3: #d97706;
+  --accent-dark: #0f766e;
+  --accent-soft: rgba(13, 148, 136, 0.12);
+  --accent-rgb: 13, 148, 136;
+  --accent-gradient: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+  
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --success: #16a34a;
+  --success-soft: rgba(22, 163, 74, 0.1);
+  
+  --shadow: 0 1px 2px rgba(15, 30, 28, 0.05), 0 12px 28px rgba(15, 30, 28, 0.07);
+  --shadow-glow: 0 0 0 1px rgba(13, 148, 136, 0.12), 0 8px 24px rgba(13, 148, 136, 0.10);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body, html {
+  background: var(--bg) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: var(--ink) !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+a { color: inherit; }
+
+/* ---------- Auth card header text ---------- */
+.auth-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.auth-subtitle {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  margin: 0 0 24px;
+}
+
+/* ---------- Form layout ---------- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+label {
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.required-mark {
+  color: var(--danger);
+}
+
+/* ---------- Inputs & selects ---------- */
+input[type="text"], input[type="password"], input[type="email"], select {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 10px 12px;
+  outline: none;
+  font-size: 13.5px;
+  font-family: inherit;
+  transition: border-color 0.15s, background-color 0.25s, color 0.25s;
+}
+
+input:focus, select:focus {
+  border-color: var(--accent);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2393a5ab' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+
+/* ---------- Password field with visibility toggle ---------- */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-wrapper input {
+  padding-right: 42px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.password-toggle-btn:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.password-toggle-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- Remember me / forgot password row ---------- */
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 20px;
+  font-size: 13px;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.form-options a, .auth-footer-text a {
+  color: var(--accent-2);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.form-options a:hover, .auth-footer-text a:hover {
+  text-decoration: underline;
+}
+
+.auth-footer-text {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.3);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.4);
+}
+
+.btn-block { width: 100%; }
+
+/* ---------- Theme Toggle ---------- */
+.theme-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s, border-color 0.15s;
+  z-index: 10;
+}
+.theme-toggle-btn:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ---------- Alerts ---------- */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.alert-error {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.alert-success {
+  background: var(--success-soft);
+  color: var(--success);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+/* ---------- Small helpers ---------- */
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent-gradient);
+  box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-3);
+  background: var(--accent-soft);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.hero-gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  body > div[style*="display: flex"][style*="height: 100vh"] {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+}
+
+.field-hint {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 11.5px;
+  margin-top: 4px;
+}
+
+/* ---------- Field validation errors ---------- */
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.field-error:empty {
+  display: none;
+  margin-top: 0;
+}
+
+.field-error::before {
+  content: "";
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--danger);
+}
+
+input[aria-invalid="true"], select[aria-invalid="true"] {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
