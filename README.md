@@ -191,5 +191,5 @@ Go to the GitHub repository.
 
 Click the Compare & pull request button.
 
-Once the automated checks pass, your code will be merged into main..
+Once the automated checks pass, your code will be merged into main...
 ```
